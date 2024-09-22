@@ -1,5 +1,6 @@
 import { currentWeatherMapper } from "@/lib/mappers";
-import WeatherApiResponse from "@/types/apiResponse";
+import { CurrentWeatherApiResponse } from "@/types/apiResponse";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const resWeatherGliwice = await fetch(
@@ -9,13 +10,15 @@ export async function GET() {
     `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Hamburg`
   );
 
-  const weatherGliwice: WeatherApiResponse = await resWeatherGliwice.json();
-  const weatherHamburg: WeatherApiResponse = await resWeatherHamburg.json();
+  const weatherGliwice: CurrentWeatherApiResponse =
+    await resWeatherGliwice.json();
+  const weatherHamburg: CurrentWeatherApiResponse =
+    await resWeatherHamburg.json();
 
   const mappedWeatherGliwice = currentWeatherMapper(weatherGliwice);
   const mappedWeatherHamburg = currentWeatherMapper(weatherHamburg);
 
-  return Response.json({
+  return NextResponse.json({
     weatherGliwice: mappedWeatherGliwice,
     weatherHamburg: mappedWeatherHamburg,
   });
