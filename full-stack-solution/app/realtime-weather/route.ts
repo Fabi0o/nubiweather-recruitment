@@ -1,3 +1,4 @@
+import { currentWeatherMapper } from "@/lib/mappers";
 import WeatherApiResponse from "@/types/apiResponse";
 
 export async function GET() {
@@ -11,5 +12,11 @@ export async function GET() {
   const weatherGliwice: WeatherApiResponse = await resWeatherGliwice.json();
   const weatherHamburg: WeatherApiResponse = await resWeatherHamburg.json();
 
-  return Response.json({ weatherGliwice, weatherHamburg });
+  const mappedWeatherGliwice = currentWeatherMapper(weatherGliwice);
+  const mappedWeatherHamburg = currentWeatherMapper(weatherHamburg);
+
+  return Response.json({
+    weatherGliwice: mappedWeatherGliwice,
+    weatherHamburg: mappedWeatherHamburg,
+  });
 }

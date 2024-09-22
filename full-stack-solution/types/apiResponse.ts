@@ -1,4 +1,4 @@
-type WeatherApiResponse = {
+type CurrentWeatherApiResponse = {
   location: {
     name: string;
     region: string;
@@ -46,4 +46,4 @@ type WeatherApiResponse = {
   };
 };
 
-export default WeatherApiResponse;
+export default CurrentWeatherApiResponse;
