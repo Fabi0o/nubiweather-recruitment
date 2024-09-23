@@ -1,4 +1,5 @@
 import { CurrentWeatherInfo, ForecastWeatherInfo } from "@/types/weatherInfo";
+import Image from "next/image";
 
 type Props = {
   currentWeatherInfo: CurrentWeatherInfo;
@@ -15,9 +16,11 @@ export default function WeatherCard({
         <div className="text-3xl font-bold m-5">{currentWeatherInfo.name}</div>
         <div className="text-lg">{currentWeatherInfo.temp_c}C</div>
         <div>
-          <img
+          <Image
             src={`https:${currentWeatherInfo.condition.icon}`}
             alt="weather icon"
+            height={64}
+            width={64}
           />
         </div>
         <div>{currentWeatherInfo.condition.text}</div>
@@ -27,7 +30,7 @@ export default function WeatherCard({
           <div className="grow flex flex-col items-center" key={forecast.date}>
             <div className="font-bold"> {forecast.date.substring(5)}</div>
             <div>
-              <img
+              <Image
                 src={`https:${forecast.condition.icon}`}
                 alt="weather icon"
                 height={40}
