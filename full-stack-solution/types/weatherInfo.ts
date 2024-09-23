@@ -26,4 +26,14 @@ type RealtimeWeatherRes = {
   weatherHamburg: CurrentWeatherInfo;
 };
 
-export type { CurrentWeatherInfo, ForecastWeatherInfo, RealtimeWeatherRes };
+type ForecastWeatherRes = {
+  forecastWeatherGliwice: ForecastWeatherInfo;
+  forecastWeatherHamburg: ForecastWeatherInfo;
+};
+
+export type {
+  CurrentWeatherInfo,
+  ForecastWeatherInfo,
+  RealtimeWeatherRes,
+  ForecastWeatherRes,
+};
