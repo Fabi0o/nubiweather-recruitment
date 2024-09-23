@@ -5,6 +5,8 @@ export default async function Home() {
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL || `https://${process.env.VERCEL_URL}`;
 
+  if (!baseUrl) return null;
+
   const currentWeatherData = await fetch(`${baseUrl}/realtime-weather`);
   const currentWeather: RealtimeWeatherRes = await currentWeatherData.json();
 
