@@ -7,17 +7,16 @@ async function fetchJSON(url: string) {
     console.error(
       `Failed to fetch ${url}: ${response.status} ${response.statusText}`
     );
-    const text = await response.text(); // To inspect if it's HTML
-    console.log(text); // Log the HTML or error message
+    const text = await response.text();
+    console.log(text);
     return null;
   }
   return await response.json();
 }
 
 export default async function Home() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || `https://${process.env.VERCEL_URL}`;
-  if (!baseUrl || baseUrl === "https://undefined") {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  if (!baseUrl) {
     console.error("Invalid baseUrl:", baseUrl);
     return null;
   }
