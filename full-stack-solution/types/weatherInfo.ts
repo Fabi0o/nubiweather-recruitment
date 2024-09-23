@@ -21,4 +21,9 @@ type ForecastWeatherInfo = CurrentWeatherInfo & {
   forecast: ForecastDay[];
 };
 
-export type { CurrentWeatherInfo, ForecastWeatherInfo };
+type RealtimeWeatherRes = {
+  weatherGliwice: CurrentWeatherInfo;
+  weatherHamburg: CurrentWeatherInfo;
+};
+
+export type { CurrentWeatherInfo, ForecastWeatherInfo, RealtimeWeatherRes };
