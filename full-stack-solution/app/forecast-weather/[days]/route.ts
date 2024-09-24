@@ -2,6 +2,8 @@ import { forecastWeatherMapper } from "@/lib/mappers";
 import { ForecastWeatherApiResponse } from "@/types/apiResponse";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
   { params }: { params: { days: string } }
@@ -15,10 +17,12 @@ export async function GET(
   try {
     const [resWeatherGliwice, resWeatherHamburg] = await Promise.all([
       fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Gliwice&days=${days}`
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Gliwice&days=${days}`,
+        { cache: "no-store" }
       ),
       fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Hamburg&days=${days}`
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Hamburg&days=${days}`,
+        { cache: "no-store" }
       ),
     ]);
 

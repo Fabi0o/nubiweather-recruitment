@@ -2,6 +2,8 @@ import { currentWeatherMapper } from "@/lib/mappers";
 import { CurrentWeatherApiResponse } from "@/types/apiResponse";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   if (!process.env.API_KEY) {
     return NextResponse.json({ error: "API key is missing" }, { status: 500 });
@@ -10,10 +12,12 @@ export async function GET() {
   try {
     const [resWeatherGliwice, resWeatherHamburg] = await Promise.all([
       fetch(
-        `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Gliwice`
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Gliwice`,
+        { cache: "no-store" }
       ),
       fetch(
-        `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Hamburg`
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Hamburg`,
+        { cache: "no-store" }
       ),
     ]);
 
