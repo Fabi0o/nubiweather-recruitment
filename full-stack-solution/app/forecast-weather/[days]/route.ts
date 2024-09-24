@@ -8,23 +8,44 @@ export async function GET(
 ) {
   const { days } = params;
 
-  const resWeatherGliwice = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Gliwice&days=${days}`
-  );
-  const resWeatherHamburg = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Hamburg&days=${days}`
-  );
+  if (!process.env.API_KEY) {
+    return NextResponse.json({ error: "API key is missing" }, { status: 500 });
+  }
 
-  const weatherGliwice: ForecastWeatherApiResponse =
-    await resWeatherGliwice.json();
-  const weatherHamburg: ForecastWeatherApiResponse =
-    await resWeatherHamburg.json();
+  try {
+    const [resWeatherGliwice, resWeatherHamburg] = await Promise.all([
+      fetch(
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Gliwice&days=${days}`
+      ),
+      fetch(
+        `http://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=Hamburg&days=${days}`
+      ),
+    ]);
 
-  const mappedWeatherGliwice = forecastWeatherMapper(weatherGliwice);
-  const mappedWeatherHamburg = forecastWeatherMapper(weatherHamburg);
+    if (!resWeatherGliwice.ok || !resWeatherHamburg.ok) {
+      return NextResponse.json(
+        { error: "Failed to fetch weather data" },
+        { status: 502 }
+      );
+    }
 
-  return NextResponse.json({
-    forecastWeatherGliwice: mappedWeatherGliwice,
-    forecastWeatherHamburg: mappedWeatherHamburg,
-  });
+    const [weatherGliwice, weatherHamburg]: [
+      ForecastWeatherApiResponse,
+      ForecastWeatherApiResponse
+    ] = await Promise.all([resWeatherGliwice.json(), resWeatherHamburg.json()]);
+
+    const mappedWeatherGliwice = forecastWeatherMapper(weatherGliwice);
+    const mappedWeatherHamburg = forecastWeatherMapper(weatherHamburg);
+
+    return NextResponse.json({
+      forecastWeatherGliwice: mappedWeatherGliwice,
+      forecastWeatherHamburg: mappedWeatherHamburg,
+    });
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
