@@ -2,7 +2,9 @@ import WeatherCard from "@/components/WeatherCard";
 import { ForecastWeatherRes, RealtimeWeatherRes } from "@/types/weatherInfo";
 
 async function fetchJSON(url: string) {
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    cache: "no-store",
+  });
   if (!response.ok) {
     console.error(
       `Failed to fetch ${url}: ${response.status} ${response.statusText}`
