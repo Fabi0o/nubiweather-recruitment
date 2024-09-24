@@ -1,38 +1,86 @@
-Hello, fellow developer!
+# NubiWeather Recruitment Task
 
-If you are reading this, you're probably interested in joining Nubisoft and that's great! We are always looking for new members to join our team and help us develop and maintain our projects in e-health, e-commerce and more.
+Live Preview: [https://nubiweather-recruitment-jbj9.vercel.app/](https://nubiweather-recruitment-jbj9.vercel.app/)
 
-## What is Nubisoft?
-NubiSoft is a software development company that specializes in developing software solutions for the healthcare and e-commerce industries. We are a team of passionate developers who are dedicated to creating innovative and user-friendly software that helps our clients achieve their business goals.
+## Project Overview
+
+NubiWeather is a full-stack weather application built as part of a recruitment task. The application fetches real-time weather data and weather forecasts for two cities, Gliwice and Hamburg, using the WeatherAPI service. It provides users with up-to-date weather information such as current conditions and forecasts for the next few days.
+
+The project is structured using the **Next.js App Router** and implements both frontend and backend logic. The backend interacts with external APIs, while the frontend dynamically fetches and displays the data.
+
+### Features Implemented
+
+- **Real-time Weather Data**: Displays current weather conditions for two cities (Gliwice and Hamburg).
+- **Forecast Weather Data**: Provides a 3-day weather forecast for the same cities.
+- **Dynamic Page Rendering**: The homepage fetches fresh weather data on every request by preventing static rendering, ensuring that the latest information is always displayed.
+- **Weather Data Mapping**: Custom mappers are used to transform API responses into a standardized format that the frontend components consume.
+
+## Frontend and Backend Communication
+
+The application’s frontend and backend communicate via **API endpoints** created using Next.js API routes in the `app` directory. These routes fetch weather data from the WeatherAPI and serve the processed responses to the frontend.
+
+- **Backend**: 
+  - Two API endpoints (`/realtime-weather` and `/forecast-weather/:days`) handle the retrieval of real-time and forecast weather data, respectively.
+  - The API endpoints fetch the data from WeatherAPI, map the responses into a format suitable for the frontend, and send the data back as JSON.
+
+- **Frontend**: 
+  - The frontend fetches data from the backend's API routes using `fetch` and displays it via reusable `WeatherCard` components.
+  - Real-time weather and forecast weather data are displayed side-by-side for both cities.
+
+## Project Structure
+
+The full-stack solution is stored in the `full-stack-solution` directory within this repository.
+
+## How to Run Locally
+
+To run the application locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Fabi0o/nubiweather-recruitment.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd full-stack-solution
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Set up the environment variables:
+   * Create a .env file in the root of the full-stack-solution directory with the following keys:
+   ```
+   API_KEY=<your-weather-api-key>
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
+   * API_KEY: Your API key from WeatherAPI.
+   * NEXT_PUBLIC_BASE_URL: The base URL for the project when running locally.
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+6. Open http://localhost:3000 in your browser to view the app.
+
+## Tech Stack
+
+* Frontend: React, Next.js (App Router)
+* Backend: Next.js API Routes
+* Styling: TailwindCSS
+* External API: WeatherAPI for fetching real-time and forecast weather data
+
+## Conclusion
+
+This project demonstrates a basic full-stack weather application where the frontend communicates seamlessly with the backend through API routes, and dynamic data fetching ensures real-time weather updates. Feel free to clone the repository and run it locally following the steps above!
+
+### Key Sections:
+
+1. **Live Preview**: Added the link to the live preview at the top.
+2. **Project Overview**: A summary of the app's purpose and functionality.
+3. **Features Implemented**: Description of the key features.
+4. **Frontend and Backend Communication**: Explains how the frontend and backend interact.
+5. **How to Run Locally**: Detailed steps to run the app locally, including setting up environment variables.
+6. **Tech Stack**: Describes the tools and technologies used in the project.
 
 
-## What is this repository?
-This repository contains starter code for a simple web application that should use https://www.weatherapi.com/ to show current weather in 2 cities: Gliwice and Hamburg. The application can be built using any technology you like, but we've provided couple of starters in different technologies to help get you up and running.
 
-## How to apply?
-
-1. Clone this repository
-2. Choose if you want to apply for a frontend, backend or fullstack position
-3. Choose a technology you want to use for frontend, backend or fullstack application (we suggest using provided examples, but you can use any technology you like and any starter code you like) 
-4. Implement the application
-5. Create a public repository and push your code there
-6. Wait for our feedback (we'll always give you feedback, no matter if you qualify for the next stage or not)
-7. Good luck!
-
-## What we expect from you?
-
-### Frontend (JS/TS, Framework of your choice, CSS, HTML, Responsive design, API usage)
-Build simple web application that uses https://www.weatherapi.com/ to show current weather in 2 cities: Gliwice and Hamburg. The application can be built using any technology you like.
-
-Detailed requirements for frontend can be found in the README.md file in frontend directory.
-
-### Backend (Backend framework, usage of SQL/No-SQL database, API usage, Docker, Best practices, Clean code, Version control system, Testing)
-Build simple API that uses https://www.weatherapi.com/ to show current weather in 2 cities: Gliwice and Hamburg. The application can be built using any technology you like.
-
-Detailed requirements for backend can be found in the README.md file in backend directory.
-
-### Fullstack
-1. Implement both frontend and backend requirements
-2. Integration of frontend and backend projects
-3. Instructions on how to run the application
-4. Readme with basic information about the application and features you've implemented and how the frontend and backend communicate
+   
